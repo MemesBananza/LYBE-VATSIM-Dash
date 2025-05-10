@@ -11,5 +11,5 @@ Planned is:
         I want this to be a sort of experient for using APIs, or atleast the VATSIM one. I also want to program this with **plain** JS and Bootstrap ("Framework" CSS).
     </p>
 <br>
-<p> *Love,* </p>
-<p> **Samuel - 1777861** </p>
+ *Love,* <br>
+ **Samuel - 1777861**
