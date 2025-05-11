@@ -1,7 +1,7 @@
-        document.addEventListener("DOMContentLoaded", function () {
-            const metarUrl = "https://metar.vatsim.net/LYBE";
+let airport = "LDDU"
+document.addEventListener("DOMContentLoaded", function () {
+            const metarUrl = "https://metar.vatsim.net/" + airport;
             const atcUrl = "https://data.vatsim.net/v3/vatsim-data.json";
-            const airport = ""
 
             const metarContainer = document.querySelector(".col-sm-4:first-child");
             const atcContainer = document.querySelector(".col-sm-4:nth-child(2)");
@@ -19,7 +19,7 @@
                         atcContainer.innerHTML = "<h1>Current active ATC</h1>";
 
                         // Separate ATC and ATIS data
-                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith(airport + "_") && controller.callsign);
+                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith("LDDU_") && controller.callsign);
                         const atisData = data.atis.find(controller => controller.callsign === airport + "_ATIS");
 
                         // Extract ATIS code from /ATIS/XX
@@ -58,18 +58,19 @@
                         // Append ATC table to the container
                         atcContainer.appendChild(atcTable);
 
-                       
+                        // Create arrivals and departures tables using IDs
+                        const departuresContainer = document.getElementById("departures-container");
+                        const arrivalsContainer = document.getElementById("arrivals-container");
 
-                        // Create containers for arrivals and departures
-                        const flightsContainer = document.createElement("div");
-                        flightsContainer.className = "mt-5 container.fluid row";
-                        atcContainer.appendChild(flightsContainer);
+                        // Clear previous content in the containers
+                        departuresContainer.innerHTML = "<h2>Departures</h2>";
+                        arrivalsContainer.innerHTML = "<h2>Arrivals</h2>";
 
                         const departuresTable = document.createElement("table");
-                        departuresTable.className = "table table-dark table-striped mt-3 col-sm-3";
+                        departuresTable.className = "table table-dark table-striped mt-3";
 
                         const arrivalsTable = document.createElement("table");
-                        arrivalsTable.className = "table table-dark table-striped mt-3 col-sm-3";
+                        arrivalsTable.className = "table table-dark table-striped mt-3";
 
                         // Create departures table header
                         const departuresThead = document.createElement("thead");
@@ -107,7 +108,7 @@
 
                         flightsData.forEach(flight => {
                             const row = document.createElement("tr");
-                            const status = flight.altitude > 0 ? "In the Air" : "On the Ground";
+                            const status = flight.altitude > 400 ? "In the Air" : "On the Ground";
                             row.innerHTML = `
                                 <td>${flight.callsign}</td>
                                 <td>${flight.flight_plan.departure}</td>
@@ -127,11 +128,9 @@
                         departuresTable.appendChild(departuresTbody);
                         arrivalsTable.appendChild(arrivalsTbody);
 
-                        // Append tables to the container
-                        flightsContainer.innerHTML = "<h2>Departures</h2>";
-                        flightsContainer.appendChild(departuresTable);
-                        flightsContainer.innerHTML += "<h2>Arrivals</h2>";
-                        flightsContainer.appendChild(arrivalsTable);
+                        // Append tables to their respective containers
+                        departuresContainer.appendChild(departuresTable);
+                        arrivalsContainer.appendChild(arrivalsTable);
                     })
                     .catch(error => {
                         console.error("Error fetching data:", error);
