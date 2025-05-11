@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         atcContainer.innerHTML = "<h1>Current active ATC</h1>";
 
                         // Separate ATC and ATIS data
-                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith("LYBE_") && controller.callsign || controller.callsign.startsWith("ADR_E_") );
+                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith(airport+"_") && controller.callsign || controller.callsign.startsWith("ADR_E_") );
                         const atisData = data.atis.find(controller => controller.callsign === airport + "_ATIS");
 
                         // Extract ATIS code from /ATIS/XX
