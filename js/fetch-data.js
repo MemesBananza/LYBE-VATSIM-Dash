@@ -1,4 +1,4 @@
-let airport = "LDDU"
+let airport = "LYBE"
 document.addEventListener("DOMContentLoaded", function () {
             const metarUrl = "https://metar.vatsim.net/" + airport;
             const atcUrl = "https://data.vatsim.net/v3/vatsim-data.json";
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         atcContainer.innerHTML = "<h1>Current active ATC</h1>";
 
                         // Separate ATC and ATIS data
-                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith("LDDU_") && controller.callsign);
+                        const atcData = data.controllers.filter(controller => controller.callsign.startsWith("LYBE_") && controller.callsign || controller.callsign.startsWith("ADR_E_") );
                         const atisData = data.atis.find(controller => controller.callsign === airport + "_ATIS");
 
                         // Extract ATIS code from /ATIS/XX
