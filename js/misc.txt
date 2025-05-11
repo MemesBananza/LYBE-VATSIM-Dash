@@ -1,0 +1,36 @@
+ // Create ATIS table
+                        const atisTable = document.createElement("table");
+                        atisTable.className = "table table-dark table-striped mt-3";
+
+                        // Create ATIS table header
+                        const atisThead = document.createElement("thead");
+                        atisThead.innerHTML = `
+                            <tr>
+                                <th>Callsign</th>
+                                <th>Frequency</th>
+                                <th>ATIS Code</th>
+                            </tr>
+                        `;
+                        atisTable.appendChild(atisThead);
+
+                        // Create ATIS table body
+                        const atisTbody = document.createElement("tbody");
+                        if (atisData) {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${atisData.callsign}</td>
+                                <td>${atisData.frequency}</td>
+                                <td>${atisCode}</td>
+                            `;
+                            atisTbody.appendChild(row);
+                        } else {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td colspan="3">No ATIS data available</td>
+                            `;
+                            atisTbody.appendChild(row);
+                        }
+                        atisTable.appendChild(atisTbody);
+
+                        // Append ATIS table to the container
+                        atcContainer.appendChild(atisTable);
