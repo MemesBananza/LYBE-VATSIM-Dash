@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         flightsData.forEach(flight => {
                             const row = document.createElement("tr");
-                            const status = flight.altitude > 400 ? "In the Air" : "On the Ground";
+                            const status = flight.groundspeed > 130 ? "In Air" : "On Ground";
                             row.innerHTML = `
                                 <td>${flight.callsign}</td>
                                 <td>${flight.flight_plan.departure}</td>
